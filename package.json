@@ -1,0 +1,46 @@
+{
+  "name": "bloom",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "vp run -r dev",
+    "build": "vp run -r build",
+    "check-types": "vp run -r check-types",
+    "check": "vp check && vp run -r check-types",
+    "lint": "vp lint",
+    "format": "vp fmt",
+    "staged": "vp staged",
+    "hooks:setup": "vp config",
+    "dev:web": "vp run --filter web dev",
+    "dev:server": "vp run --filter server dev",
+    "db:push": "vp run --filter @bloom/db db:push",
+    "db:studio": "vp run --filter @bloom/db db:studio",
+    "db:generate": "vp run --filter @bloom/db db:generate",
+    "db:migrate": "vp run --filter @bloom/db db:migrate",
+    "db:local": "vp run --filter @bloom/db db:local",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f"
+  },
+  "dependencies": {
+    "@bloom/env": "workspace:*",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@bloom/config": "workspace:*",
+    "@types/node": "catalog:",
+    "rolldown": "1.1.4",
+    "typescript": "catalog:",
+    "vite-plus": "0.2.2"
+  },
+  "overrides": {
+    "vite": "npm:@voidzero-dev/vite-plus-core@0.2.2"
+  },
+  "packageManager": "pnpm@10.10.0"
+}

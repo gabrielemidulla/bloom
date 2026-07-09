@@ -1,0 +1,24 @@
+{
+  "name": "@bloom/auth",
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    },
+    "./*": {
+      "default": "./src/*.ts"
+    }
+  },
+  "scripts": {},
+  "dependencies": {
+    "@bloom/db": "workspace:*",
+    "@bloom/env": "workspace:*",
+    "better-auth": "catalog:",
+    "dotenv": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@bloom/config": "workspace:*",
+    "typescript": "catalog:"
+  }
+}
