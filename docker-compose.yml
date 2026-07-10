@@ -55,3 +55,81 @@ services:
       retries: 5
       start_period: 10s
     restart: unless-stopped
+
+  llama:
+    build:
+      context: .
+      dockerfile: apps/sentio/docker/llama/Dockerfile
+      args:
+        LLAMA_CPP_REF: b9948
+        CMAKE_CUDA_ARCHITECTURES: "80;86;89"
+    init: true
+    gpus: all
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./models:/models:ro
+    environment:
+      LLAMA_MODEL: /models/qwen3.6/Qwen3.6-35B-A3B-UD-IQ4_XS.gguf
+      LLAMA_CTX: "12288"
+      LLAMA_THREADS: "8"
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8080/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 180s
+    restart: unless-stopped
+
+  tts:
+    profiles: ["voice"]
+    build:
+      context: .
+      dockerfile: apps/sentio/docker/tts/Dockerfile
+    init: true
+    gpus: all
+    ports:
+      - "8091:8091"
+    volumes:
+      - bloom_hf_cache:/models/huggingface
+    environment:
+      TTS_MODEL: Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice
+      TTS_ATTN: sdpa
+      HF_HOME: /models/huggingface
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:8091/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 300s
+    restart: unless-stopped
+
+  sentio:
+    build:
+      context: .
+      dockerfile: apps/sentio/Dockerfile
+    init: true
+    ports:
+      - "8000:8000"
+    environment:
+      LLAMA_HOST: http://llama:8080
+      TTS_HOST: http://tts:8091
+    depends_on:
+      llama:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8000/')",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+volumes:
+  bloom_hf_cache:

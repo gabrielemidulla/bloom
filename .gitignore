@@ -2,6 +2,7 @@
 node_modules
 .pnp
 .pnp.js
+.venv
 
 # Build outputs
 dist
@@ -53,3 +54,8 @@ coverage
 .cache
 tmp
 temp
+
+# Local model weights (keep directory structure via .gitkeep)
+models/**/*.gguf
+models/**/*.bin
+models/**/*.safetensors

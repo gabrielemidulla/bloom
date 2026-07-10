@@ -1,0 +1,24 @@
+[project]
+name = "sentio"
+version = "0.1.0"
+description = "Bloom AI API"
+requires-python = ">=3.12"
+dependencies = [
+    "bloom-ai",
+    "fastapi",
+    "librosa",
+    "mlx-audio>=0.4.4",
+    "numpy",
+    "scipy",
+    "soundfile",
+    "uvicorn[standard]",
+]
+
+[dependency-groups]
+dev = ["ipykernel", "jupyter"]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+bloom-ai = { workspace = true }
