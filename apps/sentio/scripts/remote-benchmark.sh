@@ -4,7 +4,7 @@ set -euo pipefail
 
 BLOOM="${BLOOM:-/home/debian/bloom}"
 LLAMA_BENCH="${BLOOM}/llama.cpp/build/bin/llama-bench"
-MODEL="${BLOOM}/models/qwen3.6/Qwen3.6-35B-A3B-UD-IQ4_XS.gguf"
+MODEL="${BLOOM}/.bloom/models/qwen3.6/Qwen3.6-35B-A3B-UD-IQ4_XS.gguf"
 OUT="${BLOOM}/results/benchmark-$(date +%Y%m%d-%H%M%S).jsonl"
 mkdir -p "${BLOOM}/results"
 

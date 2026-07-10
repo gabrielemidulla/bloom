@@ -10,7 +10,7 @@ CTX="${LLAMA_CTX:-12288}"
 
 if [[ ! -f "$MODEL" ]]; then
   echo "Model not found: $MODEL" >&2
-  echo "Place Qwen3.6-35B-A3B-UD-IQ4_XS.gguf under ./models/qwen3.6/ on the host." >&2
+  echo "Place Qwen3.6-35B-A3B-UD-IQ4_XS.gguf under ./.bloom/models/qwen3.6/ on the host." >&2
   exit 1
 fi
 

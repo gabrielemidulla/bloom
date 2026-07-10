@@ -55,7 +55,7 @@ coverage
 tmp
 temp
 
-# Local model weights (keep directory structure via .gitkeep)
-models/**/*.gguf
-models/**/*.bin
-models/**/*.safetensors
+# Local model weights — copy GGUFs into .bloom/models/ manually
+.bloom/models/**
+!.bloom/models/**/
+!.bloom/models/**/.gitkeep

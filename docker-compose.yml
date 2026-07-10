@@ -68,7 +68,7 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ./models:/models:ro
+      - ./.bloom/models:/models:ro
     environment:
       LLAMA_MODEL: /models/qwen3.6/Qwen3.6-35B-A3B-UD-IQ4_XS.gguf
       LLAMA_CTX: "12288"
